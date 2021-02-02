@@ -24,18 +24,18 @@
     </el-form>
 
     <el-table :data="list" border style="width: 100%">
-      <el-table-column prop="id" label="活动ID" width="180"> </el-table-column>
-      <el-table-column prop="name" label="活动名称" width="180">
+      <el-table-column prop="id" label="活动ID"> </el-table-column>
+      <el-table-column prop="name" label="活动名称">
       </el-table-column>
-      <el-table-column prop="sponsor" label="主办方" width="150">
+      <el-table-column prop="sponsor" label="主办方">
       </el-table-column>
-      <el-table-column prop="address" label="活动地址" width="280">
+      <el-table-column prop="address" label="活动地址">
       </el-table-column>
-      <el-table-column prop="starttime" label="开始日期" width="100">
+      <el-table-column prop="starttime" label="开始日期">
       </el-table-column>
-      <el-table-column prop="endtime" label="结束日期" width="100">
+      <el-table-column prop="endtime" label="结束日期">
       </el-table-column>
-      <el-table-column fixed="right" label="操作" width="100">
+      <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button @click="handleEdit(scope.row.id)" type="text" size="small"
             >修改</el-button

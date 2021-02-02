@@ -2,19 +2,19 @@
 <div>
   <br>
   <el-form :inline="true">
-          <el-form-item label="专栏名称">
-<el-input v-model="searchMap.name" placeholder="专栏名称"></el-input></el-form-item>
-          <el-form-item label="专栏简介">
-<el-input v-model="searchMap.summary" placeholder="专栏简介"></el-input></el-form-item>
-          <el-form-item label="用户ID">
-<el-input v-model="searchMap.userid" placeholder="用户ID"></el-input></el-form-item>
-          <el-form-item label="申请日期">
-<el-input v-model="searchMap.createtime" placeholder="申请日期"></el-input></el-form-item>
-          <el-form-item label="审核日期">
-<el-input v-model="searchMap.checktime" placeholder="审核日期"></el-input></el-form-item>
-          <el-form-item label="状态">
-<el-input v-model="searchMap.state" placeholder="状态"></el-input></el-form-item>
-
+    <el-form-item label="专栏名称">
+      <el-input v-model="searchMap.name" placeholder="专栏名称"></el-input>
+      </el-form-item><el-form-item label="专栏简介">
+      <el-input v-model="searchMap.summary" placeholder="专栏简介"></el-input>
+      </el-form-item><el-form-item label="用户ID">
+      <el-input v-model="searchMap.userid" placeholder="用户ID"></el-input>
+      </el-form-item><el-form-item label="申请日期">
+      <el-input v-model="searchMap.createtime" placeholder="申请日期"></el-input>
+      </el-form-item><el-form-item label="审核日期">
+      <el-input v-model="searchMap.checktime" placeholder="审核日期"></el-input>
+      </el-form-item><el-form-item label="状态">
+      <el-input v-model="searchMap.state" placeholder="状态"></el-input>
+    </el-form-item>
     <el-button type="primary" @click="fetchData()">查询</el-button>
     <el-button type="primary" @click="handleEdit('')">新增</el-button>
   </el-form>
@@ -22,14 +22,13 @@
     :data="list"
     border
     style="width: 100%">
-          <el-table-column prop="id" label="ID" width="80"></el-table-column>
-          <el-table-column prop="name" label="专栏名称" width="80"></el-table-column>
-          <el-table-column prop="summary" label="专栏简介" width="80"></el-table-column>
-          <el-table-column prop="userid" label="用户ID" width="80"></el-table-column>
-          <el-table-column prop="createtime" label="申请日期" width="80"></el-table-column>
-          <el-table-column prop="checktime" label="审核日期" width="80"></el-table-column>
-          <el-table-column prop="state" label="状态" width="80"></el-table-column>
-
+          <el-table-column prop="id" label="ID"></el-table-column>
+          <el-table-column prop="name" label="专栏名称"></el-table-column>
+          <el-table-column prop="summary" label="专栏简介"></el-table-column>
+          <el-table-column prop="userid" label="用户ID"></el-table-column>
+          <el-table-column prop="createtime" label="申请日期"></el-table-column>
+          <el-table-column prop="checktime" label="审核日期"></el-table-column>
+          <el-table-column prop="state" label="状态"></el-table-column>
     <el-table-column
       fixed="right"
       label="操作"

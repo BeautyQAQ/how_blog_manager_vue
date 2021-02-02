@@ -11,18 +11,11 @@
     <el-button type="primary" @click="fetchData()">查询</el-button>
     <el-button type="primary" @click="handleEdit('')">新增</el-button>
   </el-form>
-  <el-table
-    :data="list"
-    border
-    style="width: 100%">
-          <el-table-column prop="id" label="ID" width="80"></el-table-column>
-          <el-table-column prop="name" label="频道名称" width="80"></el-table-column>
-          <el-table-column prop="state" label="状态" width="80"></el-table-column>
-
-    <el-table-column
-      fixed="right"
-      label="操作"
-      width="100">
+  <el-table :data="list" border style="width: 100%">
+          <el-table-column prop="id" label="ID"></el-table-column>
+          <el-table-column prop="name" label="频道名称"></el-table-column>
+          <el-table-column prop="state" label="状态"></el-table-column>
+    <el-table-column fixed="right" label="操作" width="100">
       <template slot-scope="scope">
         <el-button @click="handleEdit(scope.row.id)" type="text" size="small">修改</el-button>
         <el-button @click="handleDelete(scope.row.id)" type="text" size="small">删除</el-button>

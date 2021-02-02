@@ -10,45 +10,37 @@
 <el-input v-model="searchMap.channelid" placeholder="所属频道"></el-input></el-form-item>
           <el-form-item label="类型">
 <el-input v-model="searchMap.type" placeholder="类型"></el-input></el-form-item>
-
     <el-button type="primary" @click="fetchData()">查询</el-button>
   </el-form>
-  <el-table
-    :data="list"
-    border
-    style="width: 100%">
-          <el-table-column prop="id" label="ID" width="80"></el-table-column>
-          <el-table-column prop="columnid" label="专栏ID" width="80"></el-table-column>
-          <el-table-column prop="userid" label="用户ID" width="80"></el-table-column>
-          <el-table-column prop="title" label="标题" width="80"></el-table-column>         
-          <el-table-column prop="image" label="文章封面" width="80"></el-table-column>
-          <el-table-column prop="createtime" label="发表日期" width="80"></el-table-column>
-          <el-table-column prop="ispublic" label="是否公开" width="80"></el-table-column>
-          <el-table-column prop="istop" label="是否置顶" width="80"></el-table-column>         
-          <el-table-column prop="state" label="审核状态" width="80"></el-table-column>
-          <el-table-column prop="channelid" label="所属频道" width="80"></el-table-column>
-          <el-table-column prop="url" label="URL" width="80"></el-table-column>
-          <el-table-column prop="type" label="类型" width="80"></el-table-column>
-
-    <el-table-column
-      fixed="right"
-      label="操作"
-      width="100">
+  <el-table :data="list" border style="width: 100%">
+    <el-table-column prop="id" label="ID"></el-table-column>
+    <el-table-column prop="columnid" label="专栏ID"></el-table-column>
+    <el-table-column prop="userid" label="用户ID"></el-table-column>
+    <el-table-column prop="title" label="标题"></el-table-column>         
+    <el-table-column prop="image" label="文章封面"></el-table-column>
+    <el-table-column prop="createtime" label="发表日期"></el-table-column>
+    <el-table-column prop="ispublic" label="是否公开"></el-table-column>
+    <el-table-column prop="istop" label="是否置顶"></el-table-column>         
+    <el-table-column prop="state" label="审核状态"></el-table-column>
+    <el-table-column prop="channelid" label="所属频道"></el-table-column>
+    <el-table-column prop="url" label="URL"></el-table-column>
+    <el-table-column prop="type" label="类型"></el-table-column>
+    <el-table-column fixed="right" label="操作" width="100">
       <template slot-scope="scope">
         <el-button @click="handleEdit(scope.row.id)" type="text" size="small">修改</el-button>
         <el-button @click="handleDelete(scope.row.id)" type="text" size="small">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
-      <el-pagination
-      @size-change="fetchData"
-      @current-change="fetchData"
-      :current-page="currentPage"
-      :page-sizes="[5,10,20]"
-      :page-size="10"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>  
+  <el-pagination
+    @size-change="fetchData"
+    @current-change="fetchData"
+    :current-page="currentPage"
+    :page-sizes="[5,10,20]"
+    :page-size="10"
+    layout="total, sizes, prev, pager, next, jumper"
+    :total="total">
+  </el-pagination>  
     <!--编辑窗口-->
     <el-dialog title="详情" :visible.sync="dialogFormVisible" >
       {{pojo.title}}
