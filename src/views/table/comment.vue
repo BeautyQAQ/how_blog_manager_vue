@@ -5,8 +5,11 @@
       <el-form-item label="文章编号">
         <el-input v-model="searchMap.articleid" placeholder="文章ID"></el-input>
       </el-form-item>
+      <el-form-item label="文章标题">
+        <el-input v-model="searchMap.articleid" placeholder="文章标题"></el-input>
+      </el-form-item>
       <el-form-item label="发布日期">
-        <el-input v-model="searchMap.publishdate" placeholder="发布时间"></el-input>
+        <el-input v-model="searchMap.publishdate" placeholder="发布日期"></el-input>
       </el-form-item>
       <el-form-item label="状态">
         <el-switch  placeholder="状态" on-text="" off-text=""  active-value="1" inactive-value="0" v-model="searchMap.state" ></el-switch>
@@ -15,7 +18,8 @@
     </el-form>
     <el-table :data="list" border style="width: 100%">
       <el-table-column prop="id" label="ID"></el-table-column>
-      <el-table-column prop="article" label="文章"></el-table-column>
+      <el-table-column prop="article" label="文章ID"></el-table-column>
+      <el-table-column prop="article" label="文章标题"></el-table-column>
       <el-table-column prop="content" label="评论内容"></el-table-column>
       <el-table-column prop="user" label="用户ID"></el-table-column>
       <el-table-column prop="parentid" label="父评论ID"></el-table-column>

@@ -79,7 +79,8 @@ export const constantRouterMap = [
     children: [
       { path: 'channel', name: 'channel', component: () => import('@/views/table/channel'), meta: { title: '频道管理', icon: 'table' }},
       { path: 'column', name: 'column', component: () => import('@/views/table/column'), meta: { title: '专栏管理', icon: 'table' }},
-      { path: 'article', name: 'article', component: () => import('@/views/table/article'), meta: { title: '文章管理', icon: 'table' }}
+      { path: 'article', name: 'article', component: () => import('@/views/table/article'), meta: { title: '文章管理', icon: 'table' }},
+      { path: 'comment', name: 'comment', component: () => import('@/views/table/comment'), meta: { title: '评论管理', icon: 'table' }}
     ]
   },
   { path: '*', redirect: '/404', hidden: true }
