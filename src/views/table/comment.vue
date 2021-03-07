@@ -17,19 +17,20 @@
       <el-button type="primary" @click="fetchData()">查询</el-button>
     </el-form>
     <el-table :data="list" border style="width: 100%">
-      <el-table-column prop="id" label="ID"></el-table-column>
-      <el-table-column prop="article" label="文章ID"></el-table-column>
+      <el-table-column prop="_id" label="ID"></el-table-column>
+      <el-table-column prop="articleid" label="文章ID"></el-table-column>
       <el-table-column prop="article" label="文章标题"></el-table-column>
       <el-table-column prop="content" label="评论内容"></el-table-column>
-      <el-table-column prop="user" label="用户ID"></el-table-column>
+      <el-table-column prop="userid" label="用户ID"></el-table-column>
+      <el-table-column prop="user" label="用户名称"></el-table-column>
       <el-table-column prop="parentid" label="父评论ID"></el-table-column>
       <el-table-column prop="publishdate" label="发布时间"></el-table-column>
       <el-table-column prop="checktime" label="审核时间"></el-table-column>
       <el-table-column prop="state" label="状态"></el-table-column>
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
-          <el-button @click="handleDelete(scope.row.id)" type="text" size="small">删除</el-button>
-          <el-button type="warning" plain size="small" @click="handleExamine(scope.row.id)" >审核</el-button>
+          <el-button @click="handleDelete(scope.row._id)" type="text" size="small">删除</el-button>
+          <el-button type="warning" plain size="small" @click="handleExamine(scope.row._id)" >审核</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -55,7 +56,7 @@ export default {
       pageSize: 10, // 每页大小
       searchMap: {}, // 查询条件
       pojo: {}, // 编辑表单绑定的实体对象
-      id: '' // 评论ID
+      _id: '' // 评论ID
     }
   },
   created() {
@@ -77,7 +78,7 @@ export default {
       this.fetchData();
     },
     handleSave() {
-      commentApi.update(this.id, this.pojo).then(response => {
+      commentApi.update(this._id, this.pojo).then(response => {
         this.$message({
           message: response.message,
           type: (response.flag ? 'success' : 'error')
