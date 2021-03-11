@@ -47,7 +47,7 @@ export default {
   //审核
   examine(id) {
     return request({
-      url: `/${api_name}/examine/${id}`,
+      url: `/${group_name}/${api_name}/examine/${id}`,
       method: 'put'
     })
   }
