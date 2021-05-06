@@ -9,7 +9,22 @@
         <el-input v-model="searchMap.content" placeholder="文章正文"></el-input>
       </el-form-item>
       <el-form-item label="所属频道">
-        <el-input v-model="searchMap.channelid" placeholder="所属频道"></el-input>
+        <el-select 
+        v-model="searchMap.channelid" 
+        filterable
+        remote
+        multiple
+        reserve-keyword
+        :remote-method="remoteMethod"
+        :loading="loading"
+        placeholder="所属频道">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="类型">
         <el-input v-model="searchMap.type" placeholder="类型"></el-input>
