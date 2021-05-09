@@ -13,16 +13,14 @@
         v-model="searchMap.channelid" 
         filterable
         remote
-        multiple
-        reserve-keyword
-        :remote-method="remoteMethod"
+        :remote-method="getChannelList"
         :loading="loading"
         placeholder="所属频道">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
+            v-for="item in channel"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id">
           </el-option>
         </el-select>
       </el-form-item>
@@ -76,6 +74,7 @@
 </template>
 <script>
 import articleApi from '@/api/article'
+import channelApi from '@/api/channel'
 export default {
   data() {
     return {
@@ -84,11 +83,13 @@ export default {
       currentPage: 1, // 当前页
       pageSize: 10, // 每页大小
       // searchMap: {state:'0'}, // 查询条件
-      searchMap: {}, // 
+      searchMap: {}, // 查询条件
       dialogFormVisible: false, // 编辑窗口是否可见
       pojo: {}, // 编辑表单绑定的实体对象
       cityList: [], // 城市列表
-      id: '' // 当前用户修改的ID
+      id: '', // 当前用户修改的ID
+      channel: {}, //频道列表
+      loading: false
     }
   },
   created() {
@@ -157,6 +158,13 @@ export default {
       }).then(() => {
         message.handleShowMessage(article.examine(id), this)
         this.dialogFormVisible = false // 隐藏窗口
+      })
+    },
+    getChannelList(){
+      this.loading = true
+      channelApi.getList().then(response=>{
+        this.channel = response.data
+        this.loading = false
       })
     }
   }
