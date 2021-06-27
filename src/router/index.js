@@ -59,18 +59,6 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/gathering',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/table/gathering'),
-        meta: { title: '活动管理', icon: 'form' }
-      }
-    ]
-  },
-  {
     path: '/article',
     component: Layout,
     redirect: '/example/table',
