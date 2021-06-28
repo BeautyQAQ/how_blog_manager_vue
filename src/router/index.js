@@ -47,14 +47,14 @@ export const constantRouterMap = [
       {
         path: 'table',
         name: 'Table',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/table/city'),
         meta: { title: '城市管理', icon: 'table' }
       },
       {
         path: 'tree',
         name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: '标签管理', icon: 'tree' }
+        component: () => import('@/views/table/label'),
+        meta: { title: '标签管理', icon: 'table' }
       }
     ]
   },
@@ -62,13 +62,23 @@ export const constantRouterMap = [
     path: '/article',
     component: Layout,
     redirect: '/example/table',
-    name: 'article',
+    name: 'Article',
     meta: { title: '文章管理', icon: 'example' },
     children: [
       { path: 'channel', name: 'channel', component: () => import('@/views/table/channel'), meta: { title: '频道管理', icon: 'table' }},
       { path: 'column', name: 'column', component: () => import('@/views/table/column'), meta: { title: '专栏管理', icon: 'table' }},
       { path: 'article', name: 'article', component: () => import('@/views/table/article'), meta: { title: '文章管理', icon: 'table' }},
       { path: 'comment', name: 'comment', component: () => import('@/views/table/comment'), meta: { title: '评论管理', icon: 'table' }}
+    ]
+  },
+  {
+    path: '/init',
+    component: Layout,
+    redirect: '/example/table',
+    name: 'Init',
+    meta: { title: '初始化管理', icon: 'example' },
+    children: [
+      { path: 'init', name: 'init', component: () => import('@/views/table/init'), meta: { title: '初始化管理', icon: 'example' }}
     ]
   },
   { path: '*', redirect: '/404', hidden: true }

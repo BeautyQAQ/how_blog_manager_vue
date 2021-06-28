@@ -82,7 +82,6 @@ export default {
       total: 0, // 总记录数
       currentPage: 1, // 当前页
       pageSize: 10, // 每页大小
-      // searchMap: {state:'0'}, // 查询条件
       searchMap: {}, // 查询条件
       dialogFormVisible: false, // 编辑窗口是否可见
       pojo: {}, // 编辑表单绑定的实体对象
