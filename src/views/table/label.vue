@@ -67,7 +67,7 @@
   </div>
 </template>
 <script>
-import labelApi from "@/api/city";
+import labelApi from "@/api/label";
 export default {
   data() {
     return {
