@@ -50,5 +50,12 @@ export default {
       url: `/${group_name}/${api_name}/examine/${id}`,
       method: 'put'
     })
+  },
+  // 查找标题
+  searchTitle(param) {
+    return request({
+      url: `/search/search/article/${param}/1/10`,
+      method: 'get'
+    })
   }
 }
