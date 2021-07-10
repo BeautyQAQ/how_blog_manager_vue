@@ -44,18 +44,11 @@ export default {
       method: 'delete'
     })
   },
-  //审核
+  // 审核
   examine(id) {
     return request({
       url: `/${group_name}/${api_name}/examine/${id}`,
       method: 'put'
-    })
-  },
-  // 查找标题
-  searchTitle(param) {
-    return request({
-      url: `/search/search/article/${param}/1/10`,
-      method: 'get'
     })
   }
 }
