@@ -3,7 +3,21 @@
     <br>
     <el-form :inline="true">
       <el-form-item label="标题">
-        <el-input v-model="searchMap.title" placeholder="标题"></el-input>
+        <!-- <el-input v-model="searchMap.title" placeholder="标题"></el-input> -->
+        <el-select
+          v-model="title"
+          filterable
+          remote
+          placeholder="请输入关键词"
+          :remote-method="remoteMethod"
+          :loading="titleLoading">
+          <el-option
+            v-for="item in titleList"
+            :key="item.id"
+            :label="item.title"
+            :value="item.id">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="文章正文">
         <el-input v-model="searchMap.content" placeholder="文章正文"></el-input>
@@ -88,13 +102,25 @@ export default {
       cityList: [], // 城市列表
       id: '', // 当前用户修改的ID
       channel: {}, //频道列表
-      loading: false
+      loading: false,
+      titleLoading: false,
+      title: '',
+      titleList: []
     }
   },
   created() {
     this.fetchData()
   },
   methods: {
+    // 远程搜索标题
+    remoteMethod(str) {
+      this.titleLoading = true
+      articleApi.searchTitle(str).then(res => {
+        // console.log('zz', res)
+        this.titleList = res.data.rows
+      })
+      this.titleLoading = false
+    },
     fetchData() {
       articleApi.search(this.currentPage, this.pageSize, this.searchMap).then(response => {
         this.list = response.data.rows
