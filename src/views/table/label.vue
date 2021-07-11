@@ -3,7 +3,21 @@
     <br />
     <el-form :inline="true">
       <el-form-item label="标签">
-        <el-input v-model="searchMap.labelname" placeholder="标签"></el-input>
+        <el-select
+          v-model="searchMap.labelname"
+          filterable
+          remote
+          :remote-method="searchLabel"
+          :loading="loading"
+          placeholder="标签"
+        >
+          <el-option
+            v-for="item in label"
+            :key="item.id"
+            :label="item.labelname"
+            :value="item.labelname"
+          ></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="状态">
         <el-switch
@@ -68,6 +82,7 @@
 </template>
 <script>
 import labelApi from "@/api/label";
+import searchApi from "@/api/search";
 export default {
   data() {
     return {
@@ -79,6 +94,8 @@ export default {
       dialogFormVisible: false, // 编辑窗口是否可见
       pojo: {}, // 编辑表单绑定的实体对象
       id: "", // 当前用户修改的ID
+      label: [],
+      loading: false,
     };
   },
   created() {
@@ -153,6 +170,18 @@ export default {
       }).then(() => {
         message.handleShowMessage(columnApi.examine(id), this);
       });
+    },
+    searchLabel(query) {
+      if (query !== "") {
+        this.loading = true;
+        searchApi.searchLabel(query).then((response) => {
+          this.label = response.data.rows;
+        });
+        this.loading = false;
+      } else {
+        this.label = [];
+        this.searchMap.labelname = null;
+      }
     },
   },
 };

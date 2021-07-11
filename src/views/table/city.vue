@@ -3,7 +3,13 @@
     <br />
     <el-form :inline="true">
       <el-form-item label="城市">
-        <el-input v-model="searchMap.name" placeholder="城市"></el-input>
+        <el-autocomplete
+          v-model="searchMap.name"
+          :fetch-suggestions="searchCity"
+          @select="handleSelect"
+          placeholder="城市"
+          value-key="name"
+        ></el-autocomplete>
       </el-form-item>
       <el-form-item label="是否热门">
         <el-select v-model="searchMap.ishot" placeholder="请选择">
@@ -66,6 +72,8 @@ export default {
       dialogFormVisible: false, // 编辑窗口是否可见
       pojo: {}, // 编辑表单绑定的实体对象
       id: "", // 当前用户修改的ID
+      loading: false,
+      city: [],
     };
   },
   created() {
@@ -140,6 +148,21 @@ export default {
       }).then(() => {
         message.handleShowMessage(columnApi.examine(id), this);
       });
+    },
+    // 远程搜索城市
+    searchCity(query, callback) {
+      this.loading = true;
+      const searchStr = {};
+      searchStr.name = query;
+      cityApi.searchCity(searchStr).then((res) => {
+        this.city = res.data;
+        callback(this.city);
+      });
+      this.loading = false;
+    },
+    handleSelect(item) {
+      // 选中事件
+      // console.log(item);
     },
   },
 };

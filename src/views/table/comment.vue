@@ -1,15 +1,28 @@
 <template>
   <div>
-    <br>
+    <br />
     <el-form :inline="true">
       <el-form-item label="文章">
-        <el-input v-model="searchMap.articleid" placeholder="文章ID"></el-input>
-      </el-form-item>
-      <el-form-item label="发布日期">
-        <el-input v-model="searchMap.publishdate" placeholder="发布日期"></el-input>
+        <el-select
+          v-model="searchMap.articleid"
+          filterable
+          remote
+          placeholder="文章"
+          :remote-method="searchArticleTitle"
+          :loading="loading"
+        >
+          <el-option v-for="item in titleList" :key="item.id" :label="item.title" :value="item.id"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="状态">
-        <el-switch  placeholder="状态" on-text="" off-text=""  active-value="1" inactive-value="0" v-model="searchMap.state" ></el-switch>
+        <el-switch
+          placeholder="状态"
+          on-text
+          off-text
+          active-value="1"
+          inactive-value="0"
+          v-model="searchMap.state"
+        ></el-switch>
       </el-form-item>
       <el-button type="primary" @click="fetchData()">查询</el-button>
     </el-form>
@@ -27,7 +40,7 @@
       <el-table-column fixed="right" label="操作" width="100">
         <template slot-scope="scope">
           <el-button @click="handleDelete(scope.row.id)" type="text" size="small">删除</el-button>
-          <el-button type="warning" plain size="small" @click="handleExamine(scope.row.id)" >审核</el-button>
+          <el-button type="warning" plain size="small" @click="handleExamine(scope.row.id)">审核</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -38,12 +51,13 @@
       :page-sizes="[5,10,20]"
       :page-size="10"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
-    </el-pagination>
+      :total="total"
+    ></el-pagination>
   </div>
 </template>
 <script>
-import commentApi from '@/api/comment'
+import commentApi from "@/api/comment";
+import searchApi from "@/api/search";
 export default {
   data() {
     return {
@@ -53,18 +67,22 @@ export default {
       pageSize: 10, // 每页大小
       searchMap: {}, // 查询条件
       pojo: {}, // 编辑表单绑定的实体对象
-      id: '' // 评论ID
-    }
+      id: "", // 评论ID
+      loading: false,
+      titleList: [],
+    };
   },
   created() {
-    this.fetchData()
+    this.fetchData();
   },
   methods: {
     fetchData() {
-      commentApi.search(this.currentPage, this.pageSize, this.searchMap).then(response => {
-        this.list = response.data.rows
-        this.total = response.data.total
-      })
+      commentApi
+        .search(this.currentPage, this.pageSize, this.searchMap)
+        .then((response) => {
+          this.list = response.data.rows;
+          this.total = response.data.total;
+        });
     },
     handleSizeChange(val) {
       this.pageSize = val;
@@ -75,40 +93,57 @@ export default {
       this.fetchData();
     },
     handleSave() {
-      commentApi.update(this.id, this.pojo).then(response => {
+      commentApi.update(this.id, this.pojo).then((response) => {
         this.$message({
           message: response.message,
-          type: (response.flag ? 'success' : 'error')
-        })
-        if (response.flag) { // 如果成功
-          this.fetchData() // 刷新列表
+          type: response.flag ? "success" : "error",
+        });
+        if (response.flag) {
+          // 如果成功
+          this.fetchData(); // 刷新列表
         }
-      })
-      this.dialogFormVisible = false // 关闭窗口
+      });
+      this.dialogFormVisible = false; // 关闭窗口
     },
     handleDelete(id) {
-      this.$confirm('确定要删除此纪录吗?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
+      this.$confirm("确定要删除此纪录吗?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
       }).then(() => {
-        commentApi.deleteById(id).then(response => {
-          this.$message({ message: response.message, type: (response.flag ? 'success' : 'error') })
+        commentApi.deleteById(id).then((response) => {
+          this.$message({
+            message: response.message,
+            type: response.flag ? "success" : "error",
+          });
           if (response.flag) {
-            this.fetchData() // 刷新数据
+            this.fetchData(); // 刷新数据
           }
-        })
-      })
+        });
+      });
     },
     handleExamine(id) {
-      this.$confirm('确定审核通过吗？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
+      this.$confirm("确定审核通过吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
       }).then(() => {
-        message.handleShowMessage(commentApi.examine(id), this)
-      })
-    }
-  }
-}
+        message.handleShowMessage(commentApi.examine(id), this);
+      });
+    },
+    // 远程搜索标题
+    searchArticleTitle(query) {
+      if (query !== "") {
+        this.loading = true;
+        searchApi.searchArticleTitle(query).then((res) => {
+          this.titleList = res.data.rows;
+        });
+        this.loading = false;
+      } else {
+        this.titleList = [];
+        this.searchMap.title = null;
+      }
+    },
+  },
+};
 </script>

@@ -1,12 +1,12 @@
-import request from "@/utils/request"
+import request from '@/utils/request'
 const group_name = 'article'
 const api_name = 'city'
 export default {
   getList() {
     return request({
-      url: '/${group_name}/${api_name}',
+      url: `/${group_name}/${api_name}`,
       method: 'get'
-    });
+    })
   },
   save(pojo) {
     return request({
@@ -44,4 +44,11 @@ export default {
       method: 'delete'
     })
   },
+  searchCity(searchMap) {
+    return request({
+      url: `/${group_name}/${api_name}/search`,
+      method: 'POST',
+      data: searchMap
+    })
+  }
 }
