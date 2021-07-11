@@ -19,23 +19,17 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="文章正文">
-        <el-input v-model="searchMap.content" placeholder="文章正文"></el-input>
-      </el-form-item>
       <el-form-item label="所属频道">
         <el-select
           v-model="searchMap.channelid"
           filterable
           remote
-          :remote-method="getChannelList"
+          :remote-method="searchChannel"
           :loading="loading"
           placeholder="所属频道"
         >
           <el-option v-for="item in channel" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
-      </el-form-item>
-      <el-form-item label="类型">
-        <el-input v-model="searchMap.type" placeholder="类型"></el-input>
       </el-form-item>
       <el-form-item label="状态">
         <el-switch
@@ -92,7 +86,6 @@
 <script>
 import articleApi from "@/api/article";
 import searchApi from "@/api/search";
-import channelApi from "@/api/channel";
 export default {
   data() {
     return {
@@ -114,12 +107,17 @@ export default {
   },
   methods: {
     // 远程搜索标题
-    searchArticleTitle(str) {
-      this.loading = true;
-      searchApi.searchArticleTitle(str).then((res) => {
-        this.titleList = res.data.rows;
-      });
-      this.loading = false;
+    searchArticleTitle(query) {
+      if (query !== '') {
+        this.loading = true;
+        searchApi.searchArticleTitle(query).then((res) => {
+          this.titleList = res.data.rows;
+        });
+        this.loading = false;
+      }else{
+        this.titleList = []
+        this.searchMap.title = null
+      }
     },
     fetchData() {
       articleApi
@@ -192,12 +190,17 @@ export default {
         this.dialogFormVisible = false; // 隐藏窗口
       });
     },
-    getChannelList() {
-      this.loading = true;
-      channelApi.getList().then((response) => {
-        this.channel = response.data;
+    searchChannel(query) {
+      if (query !== '') {
+        this.loading = true;
+        searchApi.searchChannel(query).then((response) => {
+          this.channel = response.data.rows;
+        });
         this.loading = false;
-      });
+      }else{
+        this.channel = []
+        this.searchMap.channelid = null
+      }
     },
   },
 };

@@ -7,5 +7,11 @@ export default {
       url: `/${group_name}/${api_name}/article/title/${keywords}/1/10`,
       method: 'get'
     })
+  },
+  searchChannel(keywords) {
+    return request({
+      url: `/${group_name}/${api_name}/channel/${keywords}/1/10`,
+      method: 'get'
+    })
   }
 }
